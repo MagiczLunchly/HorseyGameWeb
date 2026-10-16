@@ -5655,7 +5655,7 @@ var RXC = {
   nextFd: 3,
   cache: new Map,
   cacheBytes: 0,
-  cacheLimit: 805306368,
+  cacheLimit: 268435456,
   overlay: new Map,
   status: s => {
     if (Module["onStatus"]) Module["onStatus"](s); else {
