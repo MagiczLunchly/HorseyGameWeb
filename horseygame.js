@@ -8,18 +8,8 @@ var Horseygame = (() => {
   // after document.currentScript is gone, so we save it.
   // In EXPORT_ES6 mode we can just use 'import.meta.url'.
   var _scriptName = globalThis.document?.currentScript?.src;
-Module["instantiateWasm"] = function(imports, successCallback) {
-  var customMemory = new WebAssembly.Memory({ initial: 4096, maximum: 16384 });
-  imports.env.memory = customMemory;
-
-  return fetch(findWasmBinary())
-    .then(response => response.arrayBuffer())
-    .then(bytes => WebAssembly.instantiate(bytes, imports))
-    .then(output => {
-      successCallback(output.instance);
-      return output.instance.exports;
-    });
-};
+  return async function(moduleArg = {}) {
+    var Module = moduleArg;
 // include: shell.js
 // include: minimum_runtime_check.js
 // end include: minimum_runtime_check.js
@@ -5665,7 +5655,7 @@ var RXC = {
   nextFd: 3,
   cache: new Map,
   cacheBytes: 0,
-  cacheLimit: 268435456,
+  cacheLimit: 805306368,
   overlay: new Map,
   status: s => {
     if (Module["onStatus"]) Module["onStatus"](s); else {
@@ -7721,4 +7711,3 @@ if (typeof exports === 'object' && typeof module === 'object') {
   module.exports.default = Horseygame;
 } else if (typeof define === 'function' && define['amd'])
   define([], () => Horseygame);
-
